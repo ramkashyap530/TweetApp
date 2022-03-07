@@ -1,0 +1,79 @@
+<hr>
+<h5><span class="font-weight-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;"> My Tweets</span></h5>
+
+<hr>
+<div *ngFor="let tweetData of tweets" class="d-flex align-items-centerd-flex align-items-center">
+    <div class='container'>
+        <div class="row">
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                       <span>@ {{tweetData.userName}} </span>
+                       <span style="margin-left: 320px;">{{tweetData.msgPostTime}}</span>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">Tweet</h6>
+                        <p class="card-text">{{tweetData.message}}</p>
+                        <!-- reply  form div section -->
+                        <div *ngIf="editformvalid && unitId === tweetData.tweetId">
+                            <form class="form" [formGroup]="editForm" (ngSubmit)="onSubmit(tweetData)">
+                                <div class="form-group">
+                                    <h4 class="text-blue">Post Tweet</h4>
+                                    <textarea name="tweetText" id="tweetText" formControlName="message"
+                                        class="form-control form-control-sm mb-3" rows="3" cols="6"></textarea>
+                                </div>
+
+                                <hr>
+                                <button type="submit" class="btn btn-primary"
+                                    style="background-color: rgb(26, 133, 175);">Submit</button>
+                            </form>
+                        </div>
+                        <p *ngIf="tweetId===tweetData.tweetId && alreadyLiked " style="color: green;">Liked</p>
+                        <div *ngIf=!editformvalid>
+                            <div>
+                                <span> <button class="btn btn-outline-info" (click)="like(tweetData)"
+                                        [disabled]="tweetId===tweetData.tweetId &&alreadyLiked &&userId===tweetData.userName"><img
+                                            src="assets/images/like.png" width="20" height="20" class="d-inline-block "
+                                            alt="">Like</button><button class="btn btn-outline-info"
+                                        style="margin-left: 10px;" (click)="viewReply(tweetData)">View Reply</button>
+
+
+                                    <button class="btn btn-outline-info" style="margin-left: 10px;"
+                                        (click)="editTweet(tweetData)"><img src="assets/images/edit.png" width="23"
+                                            height="23" class="d-inline-block " alt="">Edit Tweet
+                                    </button>
+                                    <button class="btn btn-outline-info" style="margin-left: 10px;"
+                                        (click)="delete(tweetData.tweetId)"><img src="assets/images/deleteimage.png"
+                                            width="21" height="21" class="d-inline-block " alt="">Delete Tweet
+                                    </button>
+                                </span>
+                            </div>
+
+                            <!-- button div ends -->
+                            <!-- reply show box -->
+                            <hr>
+                            <div class="card" style="background-color:rgb(143, 209, 195)" *ngIf="expand">
+                                <div *ngIf="unitId === tweetData.tweetId">
+                                    <h5 class="card-title">Replies</h5>
+                                    <div class="card-body" *ngFor="let reply of replies">
+                                        <div>
+                                            <div>
+                                                <h6>Replied by: @{{reply.tweetId}}</h6>
+                                                Time: {{reply.msgPostTime}}
+                                                <h6>{{reply.message}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>

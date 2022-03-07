@@ -1,0 +1,90 @@
+<form class="form" [formGroup]="searchForm" (ngSubmit)="search()">
+  <div class="form-row align-items-right">
+      <div class="col-sm-3 my-1">
+          <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+          <div class="input-group">
+              <h5><span class="font-weight-bold" style="font-family: Georgia, 'Times New Roman', Times, serif;"> Search Tweet By Name</span></h5>
+
+              <input type="text" class="form-control" formControlName="userName" id="searchId">
+          </div>
+      </div>
+
+      <div class="col-auto my-1">
+          <button type="submit" class="btn btn-info">search</button>
+      </div>
+  </div>
+</form>
+<div>
+  <hr>
+</div>
+
+
+<div *ngFor="let tweetData of tweets" class="d-flex align-items-centerd-flex align-items-center">
+  <div class='container'>
+      <div class="row">
+          <div class="col-8">
+              <div class="card">
+                  <div class="card-header">
+                      {{tweetData.userName}} , {{tweetData.msgPostTime}}
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">Tweet</h5>
+                      <p class="card-text">{{tweetData.message}}</p>
+                      <!-- reply  form div section -->
+                      <div *ngIf="replyformvalid && unitId === tweetData.tweetId">
+                          <form class="form" [formGroup]="replyForm" (ngSubmit)="onSubmit(tweetData.tweetId)">
+                              <div class="form-group">
+                                  <label for="comment">
+                                      <h4 class="text-blue">Add Reply</h4>
+                                  </label>
+                                  <textarea class="text-area" formControlName="message"
+                                      class="form-control form-control-sm mb-3" rows="3"></textarea>
+                              </div>
+                              <hr>
+                              <button type="submit" class="btn btn-outline-info">Reply</button>
+                          </form>
+                      </div>
+                      <p *ngIf="tweetId===tweetData.tweetId && alreadyLiked " style="color: rgb(68, 162, 190);">Liked
+                      </p>
+                      <div *ngIf=!replyformvalid>
+                          <div>
+                              <span> <button class="btn btn-outline-info" (click)="like(tweetData)"
+                                      [disabled]="tweetId===tweetData.tweetId &&alreadyLiked &&userId===tweetData.userName"><img
+                                          src="assets/images/like.png" width="20" height="20" class="d-inline-block "
+                                          alt="">Like</button><button class="btn btn-outline-info" style="margin-left: 10px;"
+                                      (click)="viewReply(tweetData)">View Reply</button>
+
+                                  <button class="btn btn-outline-info" style="margin-left: 10px;"
+                                      (click)="addReply(tweetData.tweetId)">Add
+                                      Reply</button>
+                              </span>
+                          </div>
+
+                          <!-- button div ends -->
+                          <!-- reply show box -->
+                          <hr>
+                          <div class="card" style="background-color:rgb(143, 209, 195)" *ngIf="expand">
+                              <div *ngIf="unitId === tweetData.tweetId">
+                                  <h5 class="card-title">Replies</h5>
+                                  <div class="card-body" *ngFor="let reply of replies">
+                                      <div>
+                                          <div>
+                                              <h6>{{reply.message}}</h6>
+                                              <h6>Replied by: @{{reply.userName}}</h6>
+                                              Time: {{reply.msgPostTime}}
+
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+      <hr>
+  </div>
+</div>

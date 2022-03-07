@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6 mx-auto">
+          <div class="card">
+              <div class="card-header">
+                  <h3>UserRegistration</h3>
+              </div>
+              <div class="card-body">
+                  <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                      <div class="form-group">
+                          <label>First Name</label>
+                          <input type="text" class="form-control" formControlName="firstName">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['firstName'].touched || submitted) && registerFormControl['firstName'].errors?.['required']">
+                              Name is required
+                          </span>
+                      </div>
+                      <div class="form-group">
+                          <label>Last Name</label>
+                          <input type="text" class="form-control" formControlName="lastName">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['lastName'].touched || submitted) && registerFormControl['lastName'].errors?.['required']">
+                              Name is required
+                          </span>
+                      </div>
+                      <div class="form-group">
+                          <label>Email</label>
+                          <input type="text" class="form-control" formControlName="email">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['email'].touched || submitted) && registerFormControl['email'].errors?.['required']">
+                              Email is required
+                          </span>
+                          <span class="text-danger"
+                              *ngIf="registerFormControl['email'].touched && registerFormControl['email'].errors?.['email']">
+                              Enter a valid email address
+                          </span>
+                      </div>
+                      <div class="form-group">
+                          <label>User Name</label>
+                          <input type="text" class="form-control" formControlName="userName">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['userName'].touched || submitted) && registerFormControl['userName'].errors?.['required']">
+                              User Name is required
+                          </span>
+
+                      </div>
+                      <div class="form-group">
+                          <label>Password</label>
+                          <input type="password" class="form-control" formControlName="password">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['password'].touched || submitted) && registerFormControl['password'].errors?.['required']">
+                              Password is required
+                          </span>
+                          <span class="text-danger"
+                              *ngIf="registerFormControl['password'].touched && registerFormControl['password'].errors?.['minlength']">
+                              Password should have minimum 8 characters
+                          </span>
+                      </div>
+                      <div class="form-group">
+                          <label>Confirm Password</label>
+                          <input type="password" class="form-control" ngValidateEqual="password" formControlName="confirmPassword">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['confirmPassword'].touched || submitted)&& registerFormControl['confirmPassword'].errors?.['required']">
+                              Confirm Password is required
+                          </span>
+                          <span class="text-danger"
+                              *ngIf="registerFormControl['confirmPassword'].hasError('notEqual') && registerFormControl['password'].valid">
+                              Passwords doesnot match
+                          </span>
+                      </div>
+                      <div class="form-group">
+                          <label>Contact Number</label>
+                          <input type="text" class="form-control" formControlName="contactNumber">
+                          <span class="text-danger"
+                              *ngIf="(registerFormControl['contactNumber'].touched || submitted) && registerFormControl['contactNumber'].errors?.['required']">
+                              Contact Number is required
+                          </span>
+                      </div>
+                      <div class="form-group text-center">
+                          <button type="submit" class="btn btn-success">Register</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

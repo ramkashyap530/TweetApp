@@ -1,0 +1,19 @@
+<hr>
+<h4 class="text-blue">Post Tweet</h4>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <form class="form" [formGroup]="postTweet" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+
+          <textarea name="tweetText" id="tweetText" formControlName="message" class="form-control form-control-sm mb-3"
+            rows="3" cols="6"></textarea>
+        </div>
+
+        <hr>
+        <button type="submit" class="btn btn-primary" style="background-color: rgb(26, 133, 175);">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

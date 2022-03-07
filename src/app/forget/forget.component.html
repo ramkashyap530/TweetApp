@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+      <div class="col-md-6 mx-auto">
+          <div class="card">
+              <div class="card-header">
+                  <h3>Update Password</h3>
+              </div>
+              <div class="card-body">
+                  <form class="form" [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                      <div class="form-group">
+                          <label>User Name</label>
+                          <input type="text" class="form-control" formControlName="userName">
+                          <span class="text-danger"
+                              *ngIf="(updateFormControl['userName'].touched) && updateFormControl['userName'].errors?.['required']">
+                              User Name is required
+                          </span>
+
+                      </div>
+                      <div class="form-group">
+                          <label>Password</label>
+                          <input type="password" class="form-control" formControlName="password">
+                          <span class="text-danger"
+                              *ngIf="(updateFormControl['password'].touched) && updateFormControl['password'].errors?.['required']">
+                              Password is required
+                          </span>
+                      </div>
+                      <div class="form-group">
+                          <label>Confirm Password</label>
+                          <input type="password" class="form-control" ngValidateEqual="password" formControlName="confirmPassword">
+                          <span class="text-danger"
+                              *ngIf="(updateFormControl['confirmPassword'].touched) && updateFormControl['confirmPassword'].errors?.['required']">
+                              Confirm Password is required
+                          </span>
+                          <span class="text-danger"
+                              *ngIf="updateFormControl['confirmPassword'].hasError('notEqual') && updateFormControl['password'].valid">
+                              Passwords doesnot match
+                          </span>
+                      </div>
+                      <span *ngIf="passChange" style="color: red;">Password not changed !..Invlaid userName</span>
+                      <div class="form-group">
+                          <div class="col-md-12 text-center">
+                              <button type="submit" class="btn btn-primary" [disabled]="!updateForm.valid">Submit</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
